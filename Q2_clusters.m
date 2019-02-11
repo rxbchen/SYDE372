@@ -50,8 +50,8 @@ title('Samples and Unit Standard Deviation of ClassA and ClassB');
 legend({'Class A','Class B'},'Location','northeast')
 
 %MED%
-x1_range = (min(class_a(:,1), class_b(:,1)) : max(class_a(:,1), class_b(:,1)));
-y1_range = (min(class_a(:,2), class_b(:,2)) : max(class_a(:,2), class_b(:,2)));
+x1_range = (min(class_a(:,1), class_b(:,1)):.1:max(class_a(:,1), class_b(:,1)));
+y1_range = (min(class_a(:,2), class_b(:,2)):.1: max(class_a(:,2), class_b(:,2)));
 [X1_pt, Y1_pt] = meshgrid(x1_range, y1_range);
 case_1 = MED(mu_a, mu_b, X1_pt, Y1_pt);
 
