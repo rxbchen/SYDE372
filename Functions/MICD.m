@@ -1,7 +1,4 @@
-function matrix = MAP(meanA, meanB, covA, covB, numA, numB, X, Y) 
-    probabilityA = numA/(numA + numB);
-    probabilityB = numB/(numA + numB);
-    
+function matrix = MICD(meanA, meanB, covA, covB, numA, numB, X, Y) 
     matrix = zeros(size(X,1),size(Y,2));
     
     Q0 = inv(covA) - inv(covB);
