@@ -1,8 +1,6 @@
 function matrix = MAP(meanA, meanB, covA, covB, numA, numB, X, Y) 
     probabilityA = numA/(numA + numB);
     probabilityB = numB/(numA + numB);
-    meanA = meanA';
-    meanB = meanB';
     
     matrix = zeros(size(X,1),size(Y,2));
     
