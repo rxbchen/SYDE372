@@ -34,6 +34,8 @@ e_scatter = scatter(class_e(:,1), class_e(:,2), 'g^');
 plot_stddev_contour(mu_c, angle_c, e_val_c, 'r');
 plot_stddev_contour(mu_d, angle_d, e_val_d, 'b');
 plot_stddev_contour(mu_e, angle_e, e_val_e, 'g');
+title('Samples and Unit Standard Deviation of ClassC, ClassD, ClassE');
+legend({'Class C','Class D', 'Class E'},'Location','northeast')
 
 %MED%
 x2_range = (min([class_c(:,1); class_d(:,1); class_e(:,1)])-1 : 0.1: max([class_c(:,1); class_d(:,1); class_e(:,1)])+1);
@@ -42,7 +44,6 @@ y2_range = (min([class_c(:,2); class_d(:,2); class_e(:,2)])-1 : 0.1: max([class_
 MED_cd = MED(mu_c, mu_d, X2_pt, Y2_pt);
 MED_ec = MED(mu_e, mu_c, X2_pt, Y2_pt);
 MED_de = MED(mu_d, mu_e, X2_pt, Y2_pt);
-
 % Generating a combined matrix
 % c = 1, d = 2, e = 3
 MED_cde = zeros(size(X2_pt,1), size(Y2_pt,2));
@@ -57,8 +58,5 @@ for x=1:size(X2_pt, 1)
         end
     end
 end
-contour(X2_pt, Y2_pt, MED_cde);
-
-title('Samples and Unit Standard Deviation of ClassC, ClassD, ClassE');
-legend({'Class C','Class D', 'Class E'},'Location','northeast')
+contour(X2_pt, Y2_pt, MED_cde, 'Color', 'black');
 hold off;
