@@ -1,0 +1,89 @@
+load_samples
+
+% CASE 1 %
+figure(1)
+% Scatter plot of the points
+hold on;
+a_scatter = scatter(class_a(:,1), class_a(:,2), 'rx');
+b_scatter = scatter(class_b(:,1), class_b(:,2), 'bo');
+
+% Plot Unit stddev contour/ellipse
+plot_stddev_contour(mu_a, angle_a, e_val_a, 'r');
+plot_stddev_contour(mu_b, angle_b, e_val_b, 'b');
+
+title('Samples and Unit Standard Deviation of ClassA and ClassB');
+legend({'Class A','Class B'},'Location','northeast')
+
+%MED%
+MED_ab = MED(mu_a, mu_b, X1_pt, Y1_pt);
+contour(X1_pt, Y1_pt, MED_ab, [0,0], 'Color', 'black');
+
+% GED or MICD%
+MICD_ab = MICD(mu_a, mu_b, sigma_a, sigma_b, X1_pt, Y1_pt);
+contour(X1_pt, Y1_pt, MICD_ab, [0,0], 'Color', 'blue');
+
+% MAP
+MAP_ab = MAP(mu_a, mu_b, sigma_a, sigma_b, N_a, N_b, X1_pt, Y1_pt);
+contour(X1_pt, Y1_pt, MAP_ab, [0,0], 'Color', 'red');
+
+% NN
+NN_ab = NN(1, class_a, class_b, X1_pt, Y1_pt);
+% contour(X1_pt, Y1_pt, NN_ab, [0,0], 'Color', 'cyan');
+
+% 5NN
+NN5_ab = NN(5, class_a, class_b, X1_pt, Y1_pt);
+% contour(X1_pt, Y1_pt, NN5_ab, [0,0], 'Color', 'green');
+
+hold off;
+
+% CASE 2 %
+figure(2)
+hold on;
+c_scatter = scatter(class_c(:,1), class_c(:,2), 'rx');
+d_scatter = scatter(class_d(:,1), class_d(:,2), 'bo');
+e_scatter = scatter(class_e(:,1), class_e(:,2), 'g^');
+
+% Plot Unit stddev contour/ellipse
+plot_stddev_contour(mu_c, angle_c, e_val_c, 'r');
+plot_stddev_contour(mu_d, angle_d, e_val_d, 'b');
+plot_stddev_contour(mu_e, angle_e, e_val_e, 'g');
+
+title('Samples and Unit Standard Deviation of ClassC, ClassD, ClassE');
+legend({'Class C','Class D', 'Class E'},'Location','northeast')
+
+%MED%
+MED_cd = MED(mu_c, mu_d, X2_pt, Y2_pt);
+MED_ec = MED(mu_e, mu_c, X2_pt, Y2_pt);
+MED_de = MED(mu_d, mu_e, X2_pt, Y2_pt);
+MED_cde = combined_classifier(MED_cd, MED_de, MED_ec, X2_pt, Y2_pt);
+contour(X2_pt, Y2_pt, MED_cde, 'Color', 'black');
+
+%MICD
+MICD_cd = MICD(mu_c, mu_d, sigma_c, sigma_d, X2_pt, Y2_pt);
+MICD_ec = MICD(mu_e, mu_c, sigma_e, sigma_c, X2_pt, Y2_pt);
+MICD_de = MICD(mu_d, mu_e, sigma_d, sigma_e, X2_pt, Y2_pt);
+MICD_cde = combined_classifier(MICD_cd, MICD_de, MICD_ec, X2_pt, Y2_pt);
+contour(X2_pt, Y2_pt, MICD_cde, 'Color', 'blue');
+
+%MAP
+MAP_cd = MAP(mu_c, mu_d, sigma_c, sigma_d, N_c, N_d, X2_pt, Y2_pt);
+MAP_ec = MAP(mu_e, mu_c, sigma_e, sigma_c, N_e, N_c, X2_pt, Y2_pt);
+MAP_de = MAP(mu_d, mu_e, sigma_d, sigma_e, N_d, N_e, X2_pt, Y2_pt);
+MAP_cde = combined_classifier(MAP_cd, MAP_de, MAP_ec, X2_pt, Y2_pt);
+contour(X2_pt, Y2_pt, MAP_cde, 'Color', 'red');
+
+%NN
+NN_cd = NN(1, class_c, class_d, X2_pt, Y2_pt);
+NN_ec = NN(1, class_e, class_c, X2_pt, Y2_pt);
+NN_de = NN(1, class_d, class_e, X2_pt, Y2_pt);
+NN_cde = combined_classifier(NN_cd, NN_de, NN_ec, X2_pt, Y2_pt);
+%contour(X2_pt, Y2_pt, NN_cde, 'Color', 'cyan');
+
+%5NN
+NN5_cd = NN(5, class_c, class_d, X2_pt, Y2_pt);
+NN5_ec = NN(5, class_e, class_c, X2_pt, Y2_pt);
+NN5_de = NN(5, class_d, class_e, X2_pt, Y2_pt);
+NN5_cde = combined_classifier(NN_cd, NN_de, NN_ec, X2_pt, Y2_pt);
+% contour(X2_pt, Y2_pt, NN5_cde, 'Color', 'green');
+
+hold off;

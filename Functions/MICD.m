@@ -1,4 +1,4 @@
-function matrix = MICD(meanA, meanB, covA, covB, numA, numB, X, Y) 
+function matrix = MICD(meanA, meanB, covA, covB, X, Y) 
     matrix = zeros(size(X,1),size(Y,2));
     
     Q0 = inv(covA) - inv(covB);
