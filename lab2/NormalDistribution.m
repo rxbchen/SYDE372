@@ -5,11 +5,11 @@ x = 0:0.1:10;
 
 %plot(x,y);
 %hold on;
-histogram(a, 'Normalization', 'probability');
+histogram(b, 'Normalization', 'pdf');
 hold on;
 
-sum = normpdf(x,mean(a), std(a));
-y = normpdf(x,5,1);
+sum = normpdf(x,mean(b), std(b));
+y = exppdf(x,1);
 
 plot(x,y,'k');
 plot(x,sum);
